@@ -3,9 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class Screen2 extends StatelessWidget {
-  Screen2({super.key});
+class Screen2 extends StatefulWidget {
+  const Screen2({super.key});
 
+  @override
+  State<Screen2> createState() => _Screen2State();
+}
+
+class _Screen2State extends State<Screen2> {
   int _sessions = 54;
   int _totalSessions = 60;
   int _verbal = 18;
@@ -82,11 +87,12 @@ class Screen2 extends StatelessWidget {
                 height: 4,
               ),
               IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.filter_alt,
-                    size: 25,
-                  ))
+                onPressed: () {},
+                icon: Icon(
+                  Icons.filter_alt,
+                  size: 25,
+                )
+              )
             ],
           )
         ],
@@ -195,7 +201,8 @@ class Screen2 extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                              )),
+                              )
+                            ),
                         ],
                       ),
                     ));
