@@ -41,3 +41,13 @@ class Screen2 extends StatelessWidget {
     );
   }
 }
+
+Widget Session() {
+  return Container(
+    width: double.infinity,
+    height: 200,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Color.fromRGBO(0, 135, 56, 255)),
+  );
+}
