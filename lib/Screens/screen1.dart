@@ -136,7 +136,53 @@ class Screen1 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(width: 10,),
+                  const SizedBox(height: 20,),
+                  Wrap(
+                      spacing: 20.0,
+                      runSpacing: 15.0,
+                    children: List.generate(6, (index) {
+                      return Container(
+                        width: 170.0, // Set the width of each container
+                        height: 100.0, // Set the height of each container
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                            border: Border.all(
+                              color: Colors.black.withOpacity(0.3),
+                              width: 1.0,
+                            )
+                        ),
+                        alignment: Alignment.center,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: CustomPaint(
+                                size: Size(169, 99), // Set the size of the custom paint area
+                                painter: MyCustomPaint(),
+                              ),
+                            ),
+                            Positioned(
+                              child: Text("Level",style: TextStyle(fontSize: 23),),
+                              left: 15,
+                              top: 13,
+                            ),
+                            Positioned(
+                              right: 15,
+                              bottom: 10,
+                              child: Text(
+                                index + 1 < 10 ? "0${index + 1}" : "${index + 1}",
+                                style: TextStyle(
+                                  color: Colors.yellow,
+                                  fontSize: 35.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      );
+                    }),
+                  ),
                 ],
               ),
             ),
@@ -145,7 +191,6 @@ class Screen1 extends StatelessWidget {
     );
   }
 }
-
 Widget _createStatContainer(
     String percentage, String text, Color backColor, double size) {
   return Padding(
@@ -274,4 +319,27 @@ Widget _createComplexityCont() {
       ),
     ),
   );
+}
+
+class MyCustomPaint extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    double h = size.height;
+    double w = size.width;
+    Paint paint = Paint();
+    Path path = Path();
+
+    path.moveTo(0, h); // Start at bottom-left corner
+    path.lineTo(w, 0); // Move to top-right corner
+    path.lineTo(w, h); // Move to bottom-right corner
+    path.close(); // Close the path
+
+    paint.color = Color(0xFF05872d);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
 }
