@@ -136,12 +136,13 @@ class Screen1 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(width: 10,),
+                  const SizedBox(
+                    width: 10,
+                  ),
                 ],
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 }
