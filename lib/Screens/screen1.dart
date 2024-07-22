@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:iship/Screens/screen2.dart';
 
 class Screen1 extends StatelessWidget {
   const Screen1({super.key});
@@ -138,48 +141,54 @@ class Screen1 extends StatelessWidget {
                   ),
                   const SizedBox(height: 20,),
                   Wrap(
-                    spacing: 20.0,
-                    runSpacing: 15.0,
+                    alignment: WrapAlignment.spaceBetween,
+                    spacing: 10.0,
+                    runSpacing: 10.0,
                     children: List.generate(6, (index) {
-                      return Container(
-                          width: 170.0, // Set the width of each container
-                          height: 100.0, // Set the height of each container
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.3),
-                                width: 1.0,
-                              )
-                          ),
-                          alignment: Alignment.center,
-                          child: Stack(
-                            children: [
-                              ClipRRect(
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen2(level: index+1,)));
+                        },
+                        child: Container(
+                            width: 160.0, // Set the width of each container
+                            height: 100.0, // Set the height of each container
+                            decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16.0),
-                                child: CustomPaint(
-                                  size: Size(169, 99), // Set the size of the custom paint area
-                                  painter: MyCustomPaint(),
-                                ),
-                              ),
-                              Positioned(
-                                child: Text("Level",style: TextStyle(fontSize: 23),),
-                                left: 15,
-                                top: 13,
-                              ),
-                              Positioned(
-                                right: 15,
-                                bottom: 10,
-                                child: Text(
-                                  index + 1 < 10 ? "0${index + 1}" : "${index + 1}",
-                                  style: TextStyle(
-                                    color: Colors.yellow,
-                                    fontSize: 35.0,
-                                    fontWeight: FontWeight.w500,
+                                border: Border.all(
+                                  color: Colors.black.withOpacity(0.3),
+                                  width: 1.0,
+                                )
+                            ),
+                            alignment: Alignment.center,
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                  child: CustomPaint(
+                                    size: Size(169, 99), // Set the size of the custom paint area
+                                    painter: MyCustomPaint(),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
+                                Positioned(
+                                  child: Text("Level",style: TextStyle(fontSize: 23),),
+                                  left: 15,
+                                  top: 13,
+                                ),
+                                Positioned(
+                                  right: 15,
+                                  bottom: 10,
+                                  child: Text(
+                                    index + 1 < 10 ? "0${index + 1}" : "${index + 1}",
+                                    style: TextStyle(
+                                      color: Colors.yellow,
+                                      fontSize: 35.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                        ),
                       );
                     }),
                   ),

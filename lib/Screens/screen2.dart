@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Screen2 extends StatefulWidget {
-  const Screen2({super.key});
+  const Screen2({
+    super.key,
+    required this.level
+  });
+
+  final int level;
 
   @override
   State<Screen2> createState() => _Screen2State();
@@ -73,7 +78,7 @@ class _Screen2State extends State<Screen2> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Level - 01",
+          "Level - ${widget.level}",
           style: TextStyle(
               color: Color.fromRGBO(13, 131, 70, 1),
               fontWeight: FontWeight.bold),
@@ -228,7 +233,7 @@ class _Screen2State extends State<Screen2> {
             Row(
               children: [
                 Text(
-                  "Level 01 Session - ",
+                  "Level ${(widget.level<10)?"0${widget.level}":widget.level} Session - ",
                   style: TextStyle(
                       fontSize: 21,
                       color: Colors.green[100],
