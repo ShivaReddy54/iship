@@ -1,5 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Screen2 extends StatelessWidget {
   Screen2({super.key});
@@ -9,10 +11,10 @@ class Screen2 extends StatelessWidget {
   int _verbal = 18;
   int _reasoning = 16;
   int _apptitude = 20;
+
   List _data = [
     {
-      "icon":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR816NMJ9LjiBWjhHjy1dkGfpUURDnlymqeRg&s",
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
       "title": "Jumbled Words",
       "topic": "Verbal Ability",
       "sessions": 20,
@@ -20,7 +22,7 @@ class Screen2 extends StatelessWidget {
       "percentage": 87
     },
     {
-      "icon": "https://cdn-icons-png.flaticon.com/512/5663/5663239.png",
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
       "title": "Jumbled Words",
       "topic": "Verbal Ability",
       "sessions": 20,
@@ -28,7 +30,55 @@ class Screen2 extends StatelessWidget {
       "percentage": 87
     },
     {
-      "icon": "https://cdn-icons-png.flaticon.com/512/5663/5663239.png",
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+      "title": "Jumbled Words",
+      "topic": "Verbal Ability",
+      "sessions": 20,
+      "attended": 16,
+      "percentage": 87
+    },
+    {
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+      "title": "Jumbled Words",
+      "topic": "Verbal Ability",
+      "sessions": 20,
+      "attended": 16,
+      "percentage": 87
+    },
+    {
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+      "title": "Jumbled Words",
+      "topic": "Verbal Ability",
+      "sessions": 20,
+      "attended": 16,
+      "percentage": 87
+    },
+    {
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+      "title": "Jumbled Words",
+      "topic": "Verbal Ability",
+      "sessions": 20,
+      "attended": 16,
+      "percentage": 87
+    },
+    {
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+      "title": "Jumbled Words",
+      "topic": "Verbal Ability",
+      "sessions": 20,
+      "attended": 16,
+      "percentage": 87
+    },
+    {
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+      "title": "Jumbled Words",
+      "topic": "Verbal Ability",
+      "sessions": 20,
+      "attended": 16,
+      "percentage": 87
+    },
+    {
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
       "title": "Jumbled Words",
       "topic": "Verbal Ability",
       "sessions": 20,
@@ -71,94 +121,101 @@ class Screen2 extends StatelessWidget {
           children: [
             Session(),
             ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _data.length,
-                itemBuilder: (context, index) {
-                  return box(index);
-                })
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: _data.length,
+                itemBuilder: (context,index){
+                  return Container(
+                    width: double.infinity,
+                    height: 90,
+                    margin: EdgeInsets.only(top: 15),
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [BoxShadow(blurRadius: 10,spreadRadius: -7)]
+                    ),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(_data[index]["icon"]),
+                                      fit: BoxFit.fill
+                                    )
+                                  ),
+                                ),
+                                Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _data[index]["title"],
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color.fromRGBO(13, 131, 71, 1)
+                                        ),
+                                      ),
+                                      Text(
+                                        _data[index]["topic"],
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'No.of sessions: ',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey
+                                            ),
+                                          ),
+                                          Text("${_data[index]["sessions"]}  ",style: TextStyle(color: Colors.green)),
+                                          Text(
+                                            'Attended: ',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey
+                                            ),
+                                          ),
+                                          Text("${_data[index]["attended"]}  ",style: TextStyle(color: Colors.green),)
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ]
+                            ),
+                          ),
+                          Container(
+                            width: 50,
+                            height: 50,
+                            child: CircularPercentIndicator(
+                              radius: 25,
+                              lineWidth: 5,
+                              progressColor: Colors.green,
+                              percent: (_data[index]["percentage"]/100),
+                              center: Text("${_data[index]["percentage"]}%",style: TextStyle(fontWeight: FontWeight.bold),),
+                            )
+                          ),
+                        ],
+                      ),
+                    )
+                  );
+                },
+            ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget box(index) {
-    return Container(
-      width: double.infinity,
-      height: 100,
-      margin: EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [BoxShadow(spreadRadius: -7, blurRadius: 10)]),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Container(
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(_data[index]["icon"]),
-                      fit: BoxFit.cover)),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _data[index]["title"],
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Color.fromRGBO(13, 131, 70, 1),
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  _data[index]["topic"],
-                  style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w700),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "No.of Sessions:",
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
-                    Text(
-                      "${_data[index]["sessions"]}",
-                      style: TextStyle(
-                          color: Colors.green, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "Attended:",
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
-                    Text(
-                      "${_data[index]["attended"]}",
-                      style: TextStyle(
-                          color: Colors.green, fontWeight: FontWeight.w600),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(),
-          )
-        ],
       ),
     );
   }
@@ -166,8 +223,7 @@ class Screen2 extends StatelessWidget {
   Widget Session() {
     return Container(
       width: double.infinity,
-      height: 150,
-      margin: EdgeInsets.only(bottom: 10),
+      height: 155,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Color.fromRGBO(0, 135, 56, 1)),
@@ -202,7 +258,6 @@ class Screen2 extends StatelessWidget {
                 createTopics("Verbal ", _verbal),
                 createTopics("Reasoning ", _reasoning),
                 createTopics("Aptitude ", _apptitude),
-                SizedBox()
               ],
             )
           ],
