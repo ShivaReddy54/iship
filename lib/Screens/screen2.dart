@@ -210,6 +210,7 @@ class Screen2 extends StatelessWidget {
                               center: Text("${_data[index]["percentage"]}%",style: TextStyle(fontWeight: FontWeight.bold),),
                             )
                           ),
+                          
                         ],
                       ),
                     )
