@@ -19,7 +19,23 @@ class Screen2 extends StatelessWidget {
       "topic": "Verbal Ability",
       "sessions": 20,
       "attended": 16,
-      "percentage": 87
+      "percentage": 50
+    },
+    {
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+      "title": "Numerical",
+      "topic": "Reasoning",
+      "sessions": 20,
+      "attended": 16,
+      "percentage": 90
+    },
+    {
+      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+      "title": "Blood Relations",
+      "topic": "Apptitude",
+      "sessions": 20,
+      "attended": 16,
+      "percentage": 36
     },
     {
       "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
@@ -27,60 +43,20 @@ class Screen2 extends StatelessWidget {
       "topic": "Verbal Ability",
       "sessions": 20,
       "attended": 16,
-      "percentage": 87
+      "percentage": 14
     },
     {
       "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
+      "title": "Numerical",
+      "topic": "Reasoning",
       "sessions": 20,
       "attended": 16,
-      "percentage": 87
+      "percentage": 78
     },
     {
       "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
-      "sessions": 20,
-      "attended": 16,
-      "percentage": 87
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
-      "sessions": 20,
-      "attended": 16,
-      "percentage": 87
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
-      "sessions": 20,
-      "attended": 16,
-      "percentage": 87
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
-      "sessions": 20,
-      "attended": 16,
-      "percentage": 87
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
-      "sessions": 20,
-      "attended": 16,
-      "percentage": 87
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
+      "title": "Blood Relations",
+      "topic": "Apptitude",
       "sessions": 20,
       "attended": 16,
       "percentage": 87
@@ -118,6 +94,8 @@ class Screen2 extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
+          physics: ScrollPhysics(),
+          shrinkWrap: true,
           children: [
             Session(),
             ListView.builder(
@@ -165,7 +143,9 @@ class Screen2 extends StatelessWidget {
                                     Text(
                                       _data[index]["topic"],
                                       style: TextStyle(
-                                          fontSize: 14, color: Colors.grey),
+                                          fontSize: 14,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     Row(
                                       children: [
@@ -175,8 +155,9 @@ class Screen2 extends StatelessWidget {
                                               fontSize: 14, color: Colors.grey),
                                         ),
                                         Text("${_data[index]["sessions"]}  ",
-                                            style:
-                                                TextStyle(color: Colors.green)),
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontWeight: FontWeight.w600)),
                                         Text(
                                           'Attended: ',
                                           style: TextStyle(
@@ -184,7 +165,9 @@ class Screen2 extends StatelessWidget {
                                         ),
                                         Text(
                                           "${_data[index]["attended"]}  ",
-                                          style: TextStyle(color: Colors.green),
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.w600),
                                         )
                                       ],
                                     ),
@@ -196,14 +179,21 @@ class Screen2 extends StatelessWidget {
                           Container(
                               width: 50,
                               height: 50,
-                              child: CircularPercentIndicator(
-                                radius: 25,
-                                lineWidth: 5,
-                                progressColor: Colors.green,
-                                percent: (_data[index]["percentage"] / 100),
-                                center: Text(
-                                  "${_data[index]["percentage"]}%",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                              child: Transform.rotate(
+                                angle: 22 / 7,
+                                child: CircularPercentIndicator(
+                                  radius: 25,
+                                  lineWidth: 5,
+                                  progressColor: Colors.green,
+                                  percent: (_data[index]["percentage"] / 100),
+                                  center: Transform.rotate(
+                                    angle: 22 / 7,
+                                    child: Text(
+                                      "${_data[index]["percentage"]}%",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                 ),
                               )),
                         ],
@@ -220,7 +210,7 @@ class Screen2 extends StatelessWidget {
   Widget Session() {
     return Container(
       width: double.infinity,
-      height: 155,
+      height: 130,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Color.fromRGBO(0, 135, 56, 1)),
