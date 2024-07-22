@@ -51,7 +51,7 @@ class Screen2 extends StatelessWidget {
   Widget Session() {
     return Container(
       width: double.infinity,
-      height: 170,
+      height: 155,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Color.fromRGBO(0, 135, 56, 1)),
@@ -76,9 +76,44 @@ class Screen2 extends StatelessWidget {
                       color: Color.fromRGBO(213, 208, 65, 1)),
                 )
               ],
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                createTopics("Verbal ", _verbal),
+                createTopics("Reasoning ", _reasoning),
+                createTopics("Aptitude ", _apptitude),
+                SizedBox()
+              ],
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget createTopics(topic, value) {
+    return Container(
+      child: Row(
+        children: [
+          Text(
+            topic,
+            style: TextStyle(
+                fontSize: 15,
+                color: Colors.green[100],
+                fontWeight: FontWeight.w600),
+          ),
+          Text(
+            "${value}",
+            style: TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.w600,
+                color: Color.fromRGBO(213, 208, 65, 1)),
+          )
+        ],
       ),
     );
   }
