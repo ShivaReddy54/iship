@@ -35,7 +35,9 @@ class Screen2 extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
-          children: [],
+          children: [
+            Session(),
+          ],
         ),
       ),
     );
@@ -45,9 +47,9 @@ class Screen2 extends StatelessWidget {
 Widget Session() {
   return Container(
     width: double.infinity,
-    height: 200,
+    height: 170,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color.fromRGBO(0, 135, 56, 255)),
+        color: Color.fromRGBO(0, 135, 56, 1)),
   );
 }
