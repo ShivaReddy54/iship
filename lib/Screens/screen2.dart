@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
+// authors - Shiva reddy, Sriram reddy
 
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Screen2 extends StatelessWidget {
   Screen2({super.key});
+
 
   int _sessions = 54;
   int _totalSessions = 60;
