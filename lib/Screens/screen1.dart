@@ -158,7 +158,7 @@ Widget _createStatContainer(
         borderRadius: BorderRadius.circular(7.0),
         boxShadow: const [
           BoxShadow(
-            spreadRadius: 2,
+            spreadRadius: 1,
             blurRadius: 10,
             color: Colors.grey,
             offset: Offset(0, 5),
@@ -167,92 +167,95 @@ Widget _createStatContainer(
       ),
       child: Row(
         children: [
-          Row(
-            children: [
-              const SizedBox(width: 7),
-              Container(
-                width: 219,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(1.0),
-                ),
-                child: Center(
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 7),
-                      Text(
-                        percentage,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            flex: 5,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(1.0),
+              ),
+              child: Center(
+                child: Row(
+                  children: [
+                    const SizedBox(width: 7),
+                    Text(
+                      percentage,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(width: 7),
-                      Text(
-                        text,
-                        style: const TextStyle(
-                          fontSize: 14,
-                        ),
+                    ),
+                    const SizedBox(width: 7),
+                    Text(
+                      text,
+                      style: const TextStyle(
+                        fontSize: 14,
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                width: 45,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF05872d),
-                  borderRadius: BorderRadius.circular(1.0),
-                ),
-                child: const Center(
-                  child: Text(
-                    "V",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
                     ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFF05872d),
+                borderRadius: BorderRadius.circular(1.0),
+              ),
+              child: const Center(
+                child: Text(
+                  "V",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
               ),
-              Container(
-                width: 45,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF75bc1e),
-                  borderRadius: BorderRadius.circular(1.0),
-                ),
-                child: const Center(
-                  child: Text(
-                    "R",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFF75bc1e),
+                borderRadius: BorderRadius.circular(1.0),
+              ),
+              child: const Center(
+                child: Text(
+                  "R",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              Container(
-                width: 45,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFffbb00),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(7.0),
-                    bottomRight: Radius.circular(7.0),
-                  ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xFFffbb00),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(7.0),
+                  bottomRight: Radius.circular(7.0),
                 ),
-                child: const Center(
-                  child: Text(
-                    "A",
-                    style: TextStyle(
-                      color: Color(0xFF0d8114),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+              ),
+              child: const Center(
+                child: Text(
+                  "A",
+                  style: TextStyle(
+                    color: Color(0xFF0d8114),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),
