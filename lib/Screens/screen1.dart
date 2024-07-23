@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:iship/Screens/screen2.dart';
 
@@ -73,21 +71,26 @@ class Screen1 extends StatelessWidget {
                                 children: [
                                   const SizedBox(width: 20),
                                   Container(
-                                    height: 35,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.white,
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        "Join Here",
-                                        style: TextStyle(
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      height: 35,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        color: Colors.white,
                                       ),
-                                    ),
+                                      child: InkWell(
+                                        onTap: (){
+
+                                        },
+                                        child: const Center(
+                                          child: Text(
+                                            "Join Here",
+                                            style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      )
                                   ),
                                 ],
                               ),
@@ -139,48 +142,37 @@ class Screen1 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20,),
                   Wrap(
-                    // alignment: WrapAlignment.spaceEvenly,
-                    spacing: 20.0,
+                    spacing: 25.0,
                     runSpacing: 15.0,
-                    children: List.generate(12, (index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Screen2(
-                                        level: index + 1,
-                                      )));
-                        },
-                        child: Container(
-                            width: 160.0, // Set the width of each container
-                            height: 100.0, // Set the height of each container
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.0),
-                                border: Border.all(
-                                  color: Colors.black.withOpacity(0.3),
-                                  width: 1.0,
-                                )),
-                            alignment: Alignment.center,
+                    children: List.generate(6, (index) {
+                      return Container(
+                          width: 160.0,
+                          height: 100.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.0),
+                              border: Border.all(
+                                color: Colors.black.withOpacity(0.3),
+                                width: 1.0,
+                              )
+                          ),
+                          alignment: Alignment.center,
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen2(level: index+1,)));
+                            },
                             child: Stack(
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(16.0),
                                   child: CustomPaint(
-                                    size: Size(169,
-                                        99), // Set the size of the custom paint area
+                                    size: Size(169, 99),
                                     painter: MyCustomPaint(),
                                   ),
                                 ),
                                 Positioned(
-                                  child: Text(
-                                    "Level",
-                                    style: TextStyle(fontSize: 23),
-                                  ),
+                                  child: Text("Level",style: TextStyle(fontSize: 23),),
                                   left: 15,
                                   top: 13,
                                 ),
@@ -188,29 +180,28 @@ class Screen1 extends StatelessWidget {
                                   right: 15,
                                   bottom: 10,
                                   child: Text(
-                                    index + 1 < 10
-                                        ? "0${index + 1}"
-                                        : "${index + 1}",
+                                    index + 1 < 10 ? "0${index + 1}" : "${index + 1}",
                                     style: TextStyle(
-                                      color: Colors.yellow,
+                                      color: Color(0xFFffbb00),
                                       fontSize: 35.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
                               ],
-                            )),
+                            ),
+                          )
                       );
                     }),
                   ),
                 ],
               ),
             ),
-          )),
+          )
+      ),
     );
   }
 }
-
 Widget _createStatContainer(
     String percentage, String text, Color backColor, double size) {
   return Padding(
@@ -223,8 +214,8 @@ Widget _createStatContainer(
         borderRadius: BorderRadius.circular(7.0),
         boxShadow: const [
           BoxShadow(
-            spreadRadius: 1,
-            blurRadius: 10,
+            spreadRadius: -1.6,
+            blurRadius: 3,
             color: Colors.grey,
             offset: Offset(0, 5),
           ),
