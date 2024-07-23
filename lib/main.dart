@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iship/Screens/screen1.dart';
-import 'package:iship/Screens/screen2.dart';
+import 'package:iship/Screens/dashboard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: ' Iship ',
       debugShowCheckedModeBanner: false,
-      home: Screen1(),
+      home: Dashboard(),
       routes: {},
     );
   }

@@ -1,8 +1,244 @@
-import 'package:flutter/material.dart';
-import 'package:iship/Screens/screen2.dart';
+// ignore_for_file: prefer_const_constructors
 
-class Screen1 extends StatelessWidget {
-  const Screen1({super.key});
+import 'package:flutter/material.dart';
+import 'package:iship/Screens/level_page.dart';
+
+class Dashboard extends StatefulWidget {
+  const Dashboard({super.key});
+
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  List<List> data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    data = [
+      [
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+      ],
+      [
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 8
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 18
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 19
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 10
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+      ],
+      [
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 36,
+          "attended": 36
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 14,
+          "attended": 5
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 29,
+          "attended": 25
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 42,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 44,
+          "attended": 23
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+      ],
+      [
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+      ],
+      [
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+      ],
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,26 +307,21 @@ class Screen1 extends StatelessWidget {
                                 children: [
                                   const SizedBox(width: 20),
                                   Container(
-                                      height: 35,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        color: Colors.white,
-                                      ),
-                                      child: InkWell(
-                                        onTap: (){
-
-                                        },
-                                        child: const Center(
-                                          child: Text(
-                                            "Join Here",
-                                            style: TextStyle(
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
+                                    height: 35,
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: Colors.white,
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        "Join Here",
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                      )
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -142,37 +373,49 @@ class Screen1 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Wrap(
-                    spacing: 25.0,
-                    runSpacing: 15.0,
-                    children: List.generate(6, (index) {
-                      return Container(
-                          width: 160.0,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.3),
-                                width: 1.0,
-                              )
-                          ),
-                          alignment: Alignment.center,
-                          child: InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen2(level: index+1,)));
-                            },
+                    alignment: WrapAlignment.spaceBetween,
+                    spacing: 10.0,
+                    runSpacing: 10.0,
+                    children: List.generate(data.length, (index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LevelPage(
+                                        level: index + 1,
+                                        data: data[index],
+                                      )));
+                        },
+                        child: Container(
+                            width: 160.0, // Set the width of each container
+                            height: 100.0, // Set the height of each container
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                                border: Border.all(
+                                  color: Colors.black.withOpacity(0.3),
+                                  width: 1.0,
+                                )),
+                            alignment: Alignment.center,
                             child: Stack(
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(16.0),
                                   child: CustomPaint(
-                                    size: Size(169, 99),
+                                    size: Size(169,
+                                        99), // Set the size of the custom paint area
                                     painter: MyCustomPaint(),
                                   ),
                                 ),
                                 Positioned(
-                                  child: Text("Level",style: TextStyle(fontSize: 23),),
+                                  child: Text(
+                                    "Level",
+                                    style: TextStyle(fontSize: 23),
+                                  ),
                                   left: 15,
                                   top: 13,
                                 ),
@@ -180,28 +423,29 @@ class Screen1 extends StatelessWidget {
                                   right: 15,
                                   bottom: 10,
                                   child: Text(
-                                    index + 1 < 10 ? "0${index + 1}" : "${index + 1}",
+                                    index + 1 < 10
+                                        ? "0${index + 1}"
+                                        : "${index + 1}",
                                     style: TextStyle(
-                                      color: Color(0xFFffbb00),
+                                      color: Colors.yellow,
                                       fontSize: 35.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
                               ],
-                            ),
-                          )
+                            )),
                       );
                     }),
                   ),
                 ],
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 }
+
 Widget _createStatContainer(
     String percentage, String text, Color backColor, double size) {
   return Padding(
@@ -214,8 +458,8 @@ Widget _createStatContainer(
         borderRadius: BorderRadius.circular(7.0),
         boxShadow: const [
           BoxShadow(
-            spreadRadius: -1.6,
-            blurRadius: 3,
+            spreadRadius: 1,
+            blurRadius: 10,
             color: Colors.grey,
             offset: Offset(0, 5),
           ),

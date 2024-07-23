@@ -3,73 +3,44 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class Screen2 extends StatefulWidget {
-  const Screen2({super.key, required this.level});
+class LevelPage extends StatefulWidget {
+  const LevelPage({
+    super.key,
+    required this.level,
+    required this.data
+  });
 
   final int level;
+  final List data;
 
   @override
-  State<Screen2> createState() => _Screen2State();
+  State<LevelPage> createState() => _LevelPageState();
 }
 
-class _Screen2State extends State<Screen2> {
+class _LevelPageState extends State<LevelPage> {
   int _sessions = 54;
   int _totalSessions = 60;
   int _verbal = 18;
   int _reasoning = 16;
   int _apptitude = 20;
 
-  List _data = [
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
-      "sessions": 20,
-      "attended": 16
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Numerical",
-      "topic": "Reasoning",
-      "sessions": 20,
-      "attended": 16
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Blood Relations",
-      "topic": "Apptitude",
-      "sessions": 20,
-      "attended": 16
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Jumbled Words",
-      "topic": "Verbal Ability",
-      "sessions": 20,
-      "attended": 16
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Numerical",
-      "topic": "Reasoning",
-      "sessions": 20,
-      "attended": 16
-    },
-    {
-      "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-      "title": "Blood Relations",
-      "topic": "Apptitude",
-      "sessions": 20,
-      "attended": 16
-    },
-  ];
+  List _data = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      _data = widget.data;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Level - ${(widget.level < 10) ? "0${widget.level}" : widget.level}",
+          "Level - ${(widget.level<10)?"0${widget.level}":widget.level}",
           style: TextStyle(
               color: Color.fromRGBO(13, 131, 70, 1),
               fontWeight: FontWeight.bold),
@@ -83,11 +54,12 @@ class _Screen2State extends State<Screen2> {
                 height: 4,
               ),
               IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.filter_alt,
-                    size: 25,
-                  ))
+                onPressed: () {},
+                icon: Icon(
+                  Icons.filter_alt,
+                  size: 25,
+                )
+              )
             ],
           )
         ],
@@ -110,16 +82,11 @@ class _Screen2State extends State<Screen2> {
                     margin: EdgeInsets.only(top: 15),
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: -5,
-                              offset: Offset(0, 5)),
-                        ],
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            width: 1, color: Colors.grey.withOpacity(0.2))),
+                      color: Colors.white, 
+                      boxShadow: [BoxShadow(blurRadius: 3, spreadRadius: -5,offset: Offset(0,5)),],
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(width: 1,color: Colors.grey.withOpacity(0.2))
+                    ),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,8 +163,7 @@ class _Screen2State extends State<Screen2> {
                                       radius: 25,
                                       lineWidth: 5,
                                       progressColor: Colors.green,
-                                      percent: (_data[index]["attended"] /
-                                          _data[index]["sessions"]),
+                                      percent: (_data[index]["attended"] / _data[index]["sessions"]),
                                       center: Transform.rotate(
                                         angle: 22 / 7,
                                         child: Text(
@@ -209,10 +175,12 @@ class _Screen2State extends State<Screen2> {
                                     ),
                                   ),
                                 ],
-                              )),
+                              )
+                            ),
                         ],
                       ),
-                    ));
+                    )
+                  );
               },
             ),
           ],
@@ -235,7 +203,7 @@ class _Screen2State extends State<Screen2> {
             Row(
               children: [
                 Text(
-                  "Level ${(widget.level < 10) ? "0${widget.level}" : widget.level} Session - ",
+                  "Level ${(widget.level<10)?"0${widget.level}":widget.level} Session - ",
                   style: TextStyle(
                       fontSize: 21,
                       color: Colors.green[100],
