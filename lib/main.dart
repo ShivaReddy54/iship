@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iship/Screens/dashboard.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const UserAPTLogic());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class UserAPTLogic extends StatelessWidget {
+  const UserAPTLogic({super.key});
 
   @override
   Widget build(BuildContext context) {

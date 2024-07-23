@@ -12,6 +12,11 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List<List> data = [];
+  List<List<bool>> isClicked = [
+    [false, false, false],
+    [false, false, false],
+    [false, false, false],
+  ];
 
   @override
   void initState() {
@@ -355,11 +360,11 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   const SizedBox(height: 10),
                   _createStatContainer(
-                      "40", "No of Sessions", Colors.orange, 24.0),
+                      "40", "No of Sessions", Colors.orange, 24.0, 0),
                   _createStatContainer("32", "No of Sessions Attended",
-                      const Color(0xFF05872d), 15.0),
+                      const Color(0xFF05872d), 15.0, 1),
                   _createStatContainer("80%", "Attended Percentage",
-                      const Color(0xFF75bc1e), 15.0),
+                      const Color(0xFF75bc1e), 15.0, 2),
                   const SizedBox(height: 10),
                   const Row(
                     children: [
@@ -444,123 +449,122 @@ class _DashboardState extends State<Dashboard> {
           )),
     );
   }
-}
 
-Widget _createStatContainer(
-    String percentage, String text, Color backColor, double size) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Container(
-      height: 55,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: backColor,
-        borderRadius: BorderRadius.circular(7.0),
-        boxShadow: const [
-          BoxShadow(
-            spreadRadius: 1,
-            blurRadius: 10,
-            color: Colors.grey,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(1.0),
-              ),
-              child: Center(
-                child: Row(
-                  children: [
-                    const SizedBox(width: 7),
-                    Text(
-                      percentage,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+  List calcultae(topic) {
+    num totalSessions = 0, attendedSessions = 0;
+
+    for (int i = 0; i < data.length; i++) {
+      for (int j = 0; j < data[i].length; j++) {
+        if (data[i][j]["topic"][0] == topic) {
+          totalSessions += data[i][j]["sessions"];
+          attendedSessions += data[i][j]["attended"];
+        }
+      }
+    }
+
+    return [totalSessions, attendedSessions];
+  }
+
+  Widget _createStatContainer(
+      String percentage, String text, Color backColor, double size, row) {
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Container(
+        height: 55,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: backColor,
+          borderRadius: BorderRadius.circular(7.0),
+          boxShadow: const [
+            BoxShadow(
+              spreadRadius: 1,
+              blurRadius: 10,
+              color: Colors.grey,
+              offset: Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              flex: 5,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(1.0),
+                ),
+                child: Center(
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 7),
+                      Text(
+                        percentage,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 7),
-                    Text(
-                      text,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      const SizedBox(width: 7),
+                      Text(
+                        text,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF05872d),
-                borderRadius: BorderRadius.circular(1.0),
-              ),
-              child: const Center(
-                child: Text(
-                  "V",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    ],
                   ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF75bc1e),
-                borderRadius: BorderRadius.circular(1.0),
-              ),
-              child: const Center(
-                child: Text(
-                  "R",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFFffbb00),
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(7.0),
-                  bottomRight: Radius.circular(7.0),
-                ),
-              ),
-              child: const Center(
-                child: Text(
-                  "A",
-                  style: TextStyle(
-                    color: Color(0xFF0d8114),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+            category("V", calcultae("V"), Color(0xFF05872d), Colors.white,
+                false, row, 0),
+            category("R", calcultae("R"), Color(0xFF75bc1e), Colors.black,
+                false, row, 1),
+            category("A", calcultae("A"), Color(0xFFffbb00), Color(0xFF0d8114),
+                true, row, 2),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
+
+  Widget category(frontText, backText, bgColor, textColor, isCurved, row, col) {
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+          isClicked[row] = [false, false, false];
+          isClicked[row][col] = !isClicked[row][col];
+
+          setState(() {});
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              color: bgColor,
+              borderRadius: isCurved
+                  ? BorderRadius.only(
+                      topRight: Radius.circular(7.0),
+                      bottomRight: Radius.circular(7.0),
+                    )
+                  : BorderRadius.circular(1.0)),
+          child: Center(
+            child: Text(
+              isClicked[row][col]
+                  ? "${(row == 0) ? backText[0] : (row == 1) ? backText[1] : (backText[1] / backText[0] * 100).toInt()}"
+                  : frontText,
+              style: TextStyle(
+                color: textColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 Widget _createComplexityCont() {
