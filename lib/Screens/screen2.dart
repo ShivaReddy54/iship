@@ -25,48 +25,42 @@ class _Screen2State extends State<Screen2> {
       "title": "Jumbled Words",
       "topic": "Verbal Ability",
       "sessions": 20,
-      "attended": 16,
-      "percentage": 50
+      "attended": 16
     },
     {
       "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
       "title": "Numerical",
       "topic": "Reasoning",
       "sessions": 20,
-      "attended": 16,
-      "percentage": 90
+      "attended": 16
     },
     {
       "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
       "title": "Blood Relations",
       "topic": "Apptitude",
       "sessions": 20,
-      "attended": 16,
-      "percentage": 36
+      "attended": 16
     },
     {
       "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
       "title": "Jumbled Words",
       "topic": "Verbal Ability",
       "sessions": 20,
-      "attended": 16,
-      "percentage": 14
+      "attended": 16
     },
     {
       "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
       "title": "Numerical",
       "topic": "Reasoning",
       "sessions": 20,
-      "attended": 16,
-      "percentage": 78
+      "attended": 16
     },
     {
       "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
       "title": "Blood Relations",
       "topic": "Apptitude",
       "sessions": 20,
-      "attended": 16,
-      "percentage": 87
+      "attended": 16
     },
   ];
 
@@ -116,16 +110,16 @@ class _Screen2State extends State<Screen2> {
                     margin: EdgeInsets.only(top: 15),
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: Colors.grey.withOpacity(0.2), width: 1.3),
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
                               blurRadius: 3,
                               spreadRadius: -5,
-                              offset: Offset(0, 5))
-                        ]),
+                              offset: Offset(0, 5)),
+                        ],
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 1, color: Colors.grey.withOpacity(0.2))),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,22 +188,27 @@ class _Screen2State extends State<Screen2> {
                           Container(
                               width: 50,
                               height: 50,
-                              child: Transform.rotate(
-                                angle: 22 / 7,
-                                child: CircularPercentIndicator(
-                                  radius: 25,
-                                  lineWidth: 5,
-                                  progressColor: Colors.green,
-                                  percent: (_data[index]["percentage"] / 100),
-                                  center: Transform.rotate(
+                              child: Column(
+                                children: [
+                                  Transform.rotate(
                                     angle: 22 / 7,
-                                    child: Text(
-                                      "${_data[index]["percentage"]}%",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                    child: CircularPercentIndicator(
+                                      radius: 25,
+                                      lineWidth: 5,
+                                      progressColor: Colors.green,
+                                      percent: (_data[index]["attended"] /
+                                          _data[index]["sessions"]),
+                                      center: Transform.rotate(
+                                        angle: 22 / 7,
+                                        child: Text(
+                                          "${(_data[index]["attended"] / _data[index]["sessions"] * 100).toInt()}%",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                ],
                               )),
                         ],
                       ),
@@ -227,7 +226,7 @@ class _Screen2State extends State<Screen2> {
       width: double.infinity,
       height: 130,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(10),
           color: Color.fromRGBO(0, 135, 56, 1)),
       child: Padding(
         padding: const EdgeInsets.all(18),
