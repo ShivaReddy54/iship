@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Screen2 extends StatefulWidget {
-  const Screen2({
-    super.key,
-    required this.level
-  });
+  const Screen2({super.key, required this.level});
 
   final int level;
 
@@ -78,7 +75,7 @@ class _Screen2State extends State<Screen2> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Level - ${widget.level}",
+          "Level - ${(widget.level < 10) ? "0${widget.level}" : widget.level}",
           style: TextStyle(
               color: Color.fromRGBO(13, 131, 70, 1),
               fontWeight: FontWeight.bold),
@@ -92,12 +89,11 @@ class _Screen2State extends State<Screen2> {
                 height: 4,
               ),
               IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.filter_alt,
-                  size: 25,
-                )
-              )
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.filter_alt,
+                    size: 25,
+                  ))
             ],
           )
         ],
@@ -119,9 +115,17 @@ class _Screen2State extends State<Screen2> {
                     height: 90,
                     margin: EdgeInsets.only(top: 15),
                     padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                      BoxShadow(blurRadius: 10, spreadRadius: -7)
-                    ]),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: Colors.grey.withOpacity(0.2), width: 1.3),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 3,
+                              spreadRadius: -5,
+                              offset: Offset(0, 5))
+                        ]),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,8 +210,7 @@ class _Screen2State extends State<Screen2> {
                                     ),
                                   ),
                                 ),
-                              )
-                            ),
+                              )),
                         ],
                       ),
                     ));
@@ -224,7 +227,7 @@ class _Screen2State extends State<Screen2> {
       width: double.infinity,
       height: 130,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(16),
           color: Color.fromRGBO(0, 135, 56, 1)),
       child: Padding(
         padding: const EdgeInsets.all(18),
@@ -233,7 +236,7 @@ class _Screen2State extends State<Screen2> {
             Row(
               children: [
                 Text(
-                  "Level ${(widget.level<10)?"0${widget.level}":widget.level} Session - ",
+                  "Level ${(widget.level < 10) ? "0${widget.level}" : widget.level} Session - ",
                   style: TextStyle(
                       fontSize: 21,
                       color: Colors.green[100],

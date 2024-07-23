@@ -18,7 +18,7 @@ class Screen1 extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 42),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -139,15 +139,22 @@ class Screen1 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Wrap(
-                    alignment: WrapAlignment.spaceBetween,
-                    spacing: 10.0,
-                    runSpacing: 10.0,
-                    children: List.generate(6, (index) {
+                    // alignment: WrapAlignment.spaceEvenly,
+                    spacing: 20.0,
+                    runSpacing: 15.0,
+                    children: List.generate(12, (index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen2(level: index+1,)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Screen2(
+                                        level: index + 1,
+                                      )));
                         },
                         child: Container(
                             width: 160.0, // Set the width of each container
@@ -157,20 +164,23 @@ class Screen1 extends StatelessWidget {
                                 border: Border.all(
                                   color: Colors.black.withOpacity(0.3),
                                   width: 1.0,
-                                )
-                            ),
+                                )),
                             alignment: Alignment.center,
                             child: Stack(
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(16.0),
                                   child: CustomPaint(
-                                    size: Size(169, 99), // Set the size of the custom paint area
+                                    size: Size(169,
+                                        99), // Set the size of the custom paint area
                                     painter: MyCustomPaint(),
                                   ),
                                 ),
                                 Positioned(
-                                  child: Text("Level",style: TextStyle(fontSize: 23),),
+                                  child: Text(
+                                    "Level",
+                                    style: TextStyle(fontSize: 23),
+                                  ),
                                   left: 15,
                                   top: 13,
                                 ),
@@ -178,7 +188,9 @@ class Screen1 extends StatelessWidget {
                                   right: 15,
                                   bottom: 10,
                                   child: Text(
-                                    index + 1 < 10 ? "0${index + 1}" : "${index + 1}",
+                                    index + 1 < 10
+                                        ? "0${index + 1}"
+                                        : "${index + 1}",
                                     style: TextStyle(
                                       color: Colors.yellow,
                                       fontSize: 35.0,
@@ -187,19 +199,18 @@ class Screen1 extends StatelessWidget {
                                   ),
                                 ),
                               ],
-                            )
-                        ),
+                            )),
                       );
                     }),
                   ),
                 ],
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 }
+
 Widget _createStatContainer(
     String percentage, String text, Color backColor, double size) {
   return Padding(

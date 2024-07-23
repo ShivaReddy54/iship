@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: ' Iship ',
       debugShowCheckedModeBanner: false,
-      home: Screen1(),
+      home: Screen2(
+        level: 1,
+      ),
       routes: {},
     );
   }
