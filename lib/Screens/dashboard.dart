@@ -535,8 +535,9 @@ class _DashboardState extends State<Dashboard> {
     return Expanded(
       child: InkWell(
         onTap: () {
+          bool t = isClicked[row][col];
           isClicked[row] = [false, false, false];
-          isClicked[row][col] = !isClicked[row][col];
+          isClicked[row][col] = !t;
 
           setState(() {});
         },
