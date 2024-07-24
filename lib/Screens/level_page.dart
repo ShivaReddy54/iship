@@ -18,11 +18,11 @@ class LevelPage extends StatefulWidget {
 }
 
 class _LevelPageState extends State<LevelPage> {
-  int _sessions = 54;
-  int _totalSessions = 60;
-  int _verbal = 18;
-  int _reasoning = 16;
-  int _apptitude = 20;
+  num _verbal=0;
+  num _reasoning=0;
+  num _apptitude=0;
+  num _sessions=0;
+  num _attended=0;
 
   List _data = [];
 
@@ -32,6 +32,13 @@ class _LevelPageState extends State<LevelPage> {
     super.initState();
     setState(() {
       _data = widget.data;
+      for(Map i in _data){
+        if(i['topic'][0]=='V') _verbal+=i['attended'];
+        else if(i['topic'][0]=='R') _reasoning+=i['attended'];
+        else _apptitude+=i['attended'];
+        _sessions+=i['sessions'];
+      }
+      _attended=_verbal+_reasoning+_apptitude;
     });
   }
 
@@ -210,7 +217,7 @@ class _LevelPageState extends State<LevelPage> {
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "${_sessions}/${_totalSessions}",
+                  "${_attended}/${_sessions}",
                   style: TextStyle(
                       fontSize: 21,
                       fontWeight: FontWeight.w600,

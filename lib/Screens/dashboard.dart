@@ -1,7 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:iship/Screens/level_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -12,6 +16,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List<List> data = [];
+  num _sessions=0,_attended=0;
   List<List<bool>> isClicked = [
     [false, false, false],
     [false, false, false],
@@ -21,228 +26,238 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    data = [
-      [
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-      ],
-      [
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 20,
-          "attended": 8
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 20,
-          "attended": 18
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 20,
-          "attended": 19
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 20,
-          "attended": 10
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-      ],
-      [
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 36,
-          "attended": 36
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 14,
-          "attended": 5
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 29,
-          "attended": 25
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 42,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 44,
-          "attended": 23
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-      ],
-      [
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-      ],
-      [
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Jumbled Words",
-          "topic": "Verbal Ability",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Numerical",
-          "topic": "Reasoning",
-          "sessions": 20,
-          "attended": 16
-        },
-        {
-          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
-          "title": "Blood Relations",
-          "topic": "Apptitude",
-          "sessions": 20,
-          "attended": 16
-        },
-      ],
-    ];
+    data=[
+            [
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+            ],
+            [
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 20,
+                "attended": 8
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 20,
+                "attended": 18
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 20,
+                "attended": 19
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 20,
+                "attended": 10
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+            ],
+            [
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 36,
+                "attended": 36
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 14,
+                "attended": 5
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 29,
+                "attended": 25
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 42,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 44,
+                "attended": 23
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+            ],
+            [
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+            ],
+            [
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Jumbled Words",
+                "topic": "Verbal Ability",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Numerical",
+                "topic": "Reasoning",
+                "sessions": 20,
+                "attended": 16
+              },
+              {
+                "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+                "title": "Blood Relations",
+                "topic": "Apptitude",
+                "sessions": 20,
+                "attended": 16
+              },
+            ],
+        ];
+    for(int i=0;i<data.length;i++){
+      for(int j=0;j<data[i].length;j++){
+        _sessions+=data[i][j]["sessions"];
+        _attended+=data[i][j]["attended"];
+      }
+    }
+    setState(() {
+      _sessions=_sessions;
+      _attended=_attended;
+    });
   }
 
   @override
@@ -251,7 +266,7 @@ class _DashboardState extends State<Dashboard> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           backgroundColor: Colors.white,
-          body: SingleChildScrollView(
+          body: (data.isNotEmpty)?SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -311,22 +326,27 @@ class _DashboardState extends State<Dashboard> {
                               Row(
                                 children: [
                                   const SizedBox(width: 20),
-                                  Container(
-                                    height: 35,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.white,
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        "Join Here",
-                                        style: TextStyle(
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold,
+                                  InkWell(
+                                    child: Container(
+                                      height: 35,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        color: Colors.white,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Join Here",
+                                          style: TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
+                                    onTap: () async {
+                                      await launchUrlString("https://cl.gy/yFLsW");
+                                    },
                                   ),
                                 ],
                               ),
@@ -360,10 +380,10 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   const SizedBox(height: 10),
                   _createStatContainer(
-                      "40", "No of Sessions", Colors.orange, 24.0, 0),
-                  _createStatContainer("32", "No of Sessions Attended",
+                      "$_sessions", "Total Sessions", Colors.orange, 24.0, 0),
+                  _createStatContainer("$_attended", "Attended Sessions",
                       const Color(0xFF05872d), 15.0, 1),
-                  _createStatContainer("80%", "Attended Percentage",
+                  _createStatContainer("${(_attended/_sessions*100).toInt()}%", "Attended Percentage",
                       const Color(0xFF75bc1e), 15.0, 2),
                   const SizedBox(height: 10),
                   const Row(
@@ -446,11 +466,12 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
             ),
-          )),
+          ):Center(child: CircularProgressIndicator(),)
+        ),
     );
   }
 
-  List calcultae(topic) {
+  List calculate(topic) {
     num totalSessions = 0, attendedSessions = 0;
 
     for (int i = 0; i < data.length; i++) {
@@ -465,8 +486,7 @@ class _DashboardState extends State<Dashboard> {
     return [totalSessions, attendedSessions];
   }
 
-  Widget _createStatContainer(
-      String percentage, String text, Color backColor, double size, row) {
+  Widget _createStatContainer(String percentage, String text, Color backColor, double size, row) {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Container(
@@ -519,11 +539,11 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ),
-            category("V", calcultae("V"), Color(0xFF05872d), Colors.white,
+            category("V", calculate("V"), Color(0xFF05872d), Colors.white,
                 false, row, 0),
-            category("R", calcultae("R"), Color(0xFF75bc1e), Colors.black,
+            category("R", calculate("R"), Color(0xFF75bc1e), Colors.black,
                 false, row, 1),
-            category("A", calcultae("A"), Color(0xFFffbb00), Color(0xFF0d8114),
+            category("A", calculate("A"), Color(0xFFffbb00), Color(0xFF0d8114),
                 true, row, 2),
           ],
         ),
