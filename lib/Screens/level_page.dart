@@ -4,11 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class LevelPage extends StatefulWidget {
-  const LevelPage({
-    super.key,
-    required this.level,
-    required this.data
-  });
+  const LevelPage({super.key, required this.level, required this.data});
 
   final int level;
   final List data;
@@ -18,11 +14,11 @@ class LevelPage extends StatefulWidget {
 }
 
 class _LevelPageState extends State<LevelPage> {
-  num _verbal=0;
-  num _reasoning=0;
-  num _apptitude=0;
-  num _sessions=0;
-  num _attended=0;
+  num _verbal = 0;
+  num _reasoning = 0;
+  num _apptitude = 0;
+  num _sessions = 0;
+  num _attended = 0;
 
   List _data = [];
 
@@ -32,13 +28,16 @@ class _LevelPageState extends State<LevelPage> {
     super.initState();
     setState(() {
       _data = widget.data;
-      for(Map i in _data){
-        if(i['topic'][0]=='V') _verbal+=i['attended'];
-        else if(i['topic'][0]=='R') _reasoning+=i['attended'];
-        else _apptitude+=i['attended'];
-        _sessions+=i['sessions'];
+      for (Map i in _data) {
+        if (i['topic'][0] == 'V')
+          _verbal += i['attended'];
+        else if (i['topic'][0] == 'R')
+          _reasoning += i['attended'];
+        else
+          _apptitude += i['attended'];
+        _sessions += i['sessions'];
       }
-      _attended=_verbal+_reasoning+_apptitude;
+      _attended = _verbal + _reasoning + _apptitude;
     });
   }
 
@@ -47,7 +46,7 @@ class _LevelPageState extends State<LevelPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Level - ${(widget.level<10)?"0${widget.level}":widget.level}",
+          "Level - ${(widget.level < 10) ? "0${widget.level}" : widget.level}",
           style: TextStyle(
               color: Color.fromRGBO(13, 131, 70, 1),
               fontWeight: FontWeight.bold),
@@ -61,12 +60,11 @@ class _LevelPageState extends State<LevelPage> {
                 height: 4,
               ),
               IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.filter_alt,
-                  size: 25,
-                )
-              )
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.filter_alt,
+                    size: 25,
+                  ))
             ],
           )
         ],
@@ -89,11 +87,16 @@ class _LevelPageState extends State<LevelPage> {
                     margin: EdgeInsets.only(top: 15),
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                      color: Colors.white, 
-                      boxShadow: [BoxShadow(blurRadius: 3, spreadRadius: -5,offset: Offset(0,5)),],
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(width: 1,color: Colors.grey.withOpacity(0.2))
-                    ),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 3,
+                              spreadRadius: -5,
+                              offset: Offset(0, 5)),
+                        ],
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            width: 1, color: Colors.grey.withOpacity(0.2))),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,9 +108,17 @@ class _LevelPageState extends State<LevelPage> {
                                 height: 60,
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image:
-                                            NetworkImage(_data[index]["icon"]),
+                                        image: (_data[index]['topic'][0] == 'V')
+                                            ? AssetImage("assets/Verbal.png")
+                                            : (_data[index]['topic'][0] == 'R')
+                                                ? AssetImage(
+                                                    "assets/Reasoning.png")
+                                                : AssetImage(
+                                                    "assets/Aptitude.png"),
                                         fit: BoxFit.fill)),
+                              ),
+                              SizedBox(
+                                width: 8,
                               ),
                               Container(
                                 child: Column(
@@ -170,7 +181,8 @@ class _LevelPageState extends State<LevelPage> {
                                       radius: 25,
                                       lineWidth: 5,
                                       progressColor: Colors.green,
-                                      percent: (_data[index]["attended"] / _data[index]["sessions"]),
+                                      percent: (_data[index]["attended"] /
+                                          _data[index]["sessions"]),
                                       center: Transform.rotate(
                                         angle: 22 / 7,
                                         child: Text(
@@ -182,12 +194,10 @@ class _LevelPageState extends State<LevelPage> {
                                     ),
                                   ),
                                 ],
-                              )
-                            ),
+                              )),
                         ],
                       ),
-                    )
-                  );
+                    ));
               },
             ),
           ],
@@ -210,7 +220,7 @@ class _LevelPageState extends State<LevelPage> {
             Row(
               children: [
                 Text(
-                  "Level ${(widget.level<10)?"0${widget.level}":widget.level} Session - ",
+                  "Level ${(widget.level < 10) ? "0${widget.level}" : widget.level} Session - ",
                   style: TextStyle(
                       fontSize: 21,
                       color: Colors.green[100],
