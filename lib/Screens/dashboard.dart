@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+import 'dart:io';
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:iship/Screens/level_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class Dashboard extends StatefulWidget {
@@ -13,9 +13,34 @@ class Dashboard extends StatefulWidget {
   State<Dashboard> createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends State<Dashboard> with SingleTickerProviderStateMixin{
+
+
+
+  bool _isFront = true;
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  void _toggleCard() {
+    if (_isFront) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+    setState(() {
+      _isFront = !_isFront;
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+
+
   List<List> data = [];
-  num _sessions = 0, _attended = 0;
   List<List<bool>> isClicked = [
     [false, false, false],
     [false, false, false],
@@ -25,6 +50,11 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
     data = [
       [
         {
@@ -61,6 +91,50 @@ class _DashboardState extends State<Dashboard> {
           "topic": "Reasoning",
           "sessions": 20,
           "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+      ],
+      [
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 8
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 18
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Blood Relations",
+          "topic": "Apptitude",
+          "sessions": 20,
+          "attended": 16
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Jumbled Words",
+          "topic": "Verbal Ability",
+          "sessions": 20,
+          "attended": 19
+        },
+        {
+          "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
+          "title": "Numerical",
+          "topic": "Reasoning",
+          "sessions": 20,
+          "attended": 10
         },
         {
           "icon": "https://cdn-icons-png.flaticon.com/512/2784/2784461.png",
@@ -247,17 +321,6 @@ class _DashboardState extends State<Dashboard> {
         },
       ],
     ];
-
-    for (int i = 0; i < data.length; i++) {
-      for (int j = 0; j < data[i].length; j++) {
-        _sessions += data[i][j]["sessions"];
-        _attended += data[i][j]["attended"];
-      }
-    }
-    setState(() {
-      _sessions = _sessions;
-      _attended = _attended;
-    });
   }
 
   @override
@@ -266,224 +329,211 @@ class _DashboardState extends State<Dashboard> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           backgroundColor: Colors.white,
-          body: (data.isNotEmpty)
-              ? SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Padding(
+          body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 42),
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 42),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 150,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.0),
-                              color: const Color(0xFF4d4d4d),
-                              boxShadow: const [
-                                BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.grey,
-                                  offset: Offset(0, 5),
-                                ),
-                              ],
+                    child: Container(
+                      height: 150,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.0),
+                        color: const Color(0xFF4d4d4d),
+                        boxShadow: const [
+                          BoxShadow(
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            color: Colors.grey,
+                            offset: Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Stack(
+                        children: [
+                          Column(
+                            children: [
+                              const SizedBox(height: 30),
+                              const Row(
+                                children: [
+                                  SizedBox(width: 20),
+                                  Text(
+                                    "Next Session - Time & Speed",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              const Row(
+                                children: [
+                                  SizedBox(width: 20),
+                                  Text(
+                                    "03H: 30M: 30Sec",
+                                    style: TextStyle(
+                                      color: Color(0xFF967d29),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const SizedBox(width: 20),
+                                  Container(
+                                      height: 35,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        color: Colors.white,
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          await launchUrlString("https://maya.technicalhub.io");
+                                        },
+                                        child: const Center(
+                                          child: Text(
+                                            "Join Here",
+                                            style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                  ),
+
+                                ],
+                              ),
+                            ],
+                          ),
+                          Positioned(
+                            right: 0,
+                            top: -10,
+                            child: Image.asset("assets/Employee.png",
+                              height: 200,
+                              width: 120,
                             ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Row(
+                    children: [
+                      SizedBox(width: 15),
+                      Text(
+                        "Stats",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  _createStatContainer(
+                      "40", "No of Sessions", Colors.orange, 24.0, 0),
+                  _createStatContainer("32", "No of Sessions Attended",
+                      const Color(0xFF05872d), 15.0, 1),
+                  _createStatContainer("80%", "Attended Percentage",
+                      const Color(0xFF75bc1e), 15.0, 2),
+                  const SizedBox(height: 10),
+                  const Row(
+                    children: [
+                      SizedBox(width: 15),
+                      Text(
+                        "Complexity Level",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Wrap(
+                    //alignment: WrapAlignment.spaceBetween,
+                    spacing: 20.0,
+                    runSpacing: 15.0,
+                    children: List.generate(data.length, (index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LevelPage(
+                                    level: index + 1,
+                                    data: data[index],
+                                  )));
+                        },
+                        child: Container(
+                            width: 160.0, // Set the width of each container
+                            height: 100.0, // Set the height of each container
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                                border: Border.all(
+                                  color: Colors.black.withOpacity(0.3),
+                                  width: 1.0,
+                                )),
+                            alignment: Alignment.center,
                             child: Stack(
                               children: [
-                                Column(
-                                  children: [
-                                    const SizedBox(height: 25),
-                                    const Row(
-                                      children: [
-                                        SizedBox(width: 20),
-                                        Text(
-                                          "Next Session - Time & Speed",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    const Row(
-                                      children: [
-                                        SizedBox(width: 20),
-                                        Text(
-                                          "03H: 30M: 30Sec",
-                                          style: TextStyle(
-                                            color: Color(0xFF967d29),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        const SizedBox(width: 20),
-                                        InkWell(
-                                          child: Container(
-                                            height: 35,
-                                            width: 90,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              color: Colors.white,
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "Join Here",
-                                                style: TextStyle(
-                                                  color: Colors.green,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          onTap: () async {
-                                            await launchUrlString(
-                                                "https://maya.technicalhub.io/");
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                  child: CustomPaint(
+                                    size: Size(169,
+                                        99), // Set the size of the custom paint area
+                                    painter: MyCustomPaint(),
+                                  ),
                                 ),
                                 Positioned(
-                                  right: 0,
-                                  top: -10,
-                                  child: Image.asset(
-                                    "assets/Employee.png",
-                                    height: 200,
-                                    width: 120,
+                                  child: Text(
+                                    "Level",
+                                    style: TextStyle(fontSize: 23),
+                                  ),
+                                  left: 15,
+                                  top: 13,
+                                ),
+                                Positioned(
+                                  right: 15,
+                                  bottom: 10,
+                                  child: Text(
+                                    index + 1 < 10
+                                        ? "0${index + 1}"
+                                        : "${index + 1}",
+                                    style: TextStyle(
+                                      color: Colors.yellow,
+                                      fontSize: 35.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Row(
-                          children: [
-                            SizedBox(width: 15),
-                            Text(
-                              "Stats",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        _createStatContainer("$_sessions", "Total Sessions",
-                            Colors.orange, 24.0, 0),
-                        _createStatContainer("$_attended", "Attended Sessions",
-                            const Color(0xFF05872d), 15.0, 1),
-                        _createStatContainer(
-                            "${(_attended / _sessions * 100).toInt()}%",
-                            "Attended Percentage",
-                            const Color(0xFF75bc1e),
-                            15.0,
-                            2),
-                        const SizedBox(height: 10),
-                        const Row(
-                          children: [
-                            SizedBox(width: 15),
-                            Text(
-                              "Complexity Level",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Wrap(
-                          alignment: WrapAlignment.spaceBetween,
-                          spacing: 10.0,
-                          runSpacing: 10.0,
-                          children: List.generate(data.length, (index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LevelPage(
-                                              level: index + 1,
-                                              data: data[index],
-                                            )));
-                              },
-                              child: Container(
-                                  width:
-                                      160.0, // Set the width of each container
-                                  height:
-                                      100.0, // Set the height of each container
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16.0),
-                                      border: Border.all(
-                                        color: Colors.black.withOpacity(0.3),
-                                        width: 1.0,
-                                      )),
-                                  alignment: Alignment.center,
-                                  child: Stack(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                        child: CustomPaint(
-                                          size: Size(169,
-                                              99), // Set the size of the custom paint area
-                                          painter: MyCustomPaint(),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        child: Text(
-                                          "Level",
-                                          style: TextStyle(fontSize: 23),
-                                        ),
-                                        left: 15,
-                                        top: 13,
-                                      ),
-                                      Positioned(
-                                        right: 15,
-                                        bottom: 10,
-                                        child: Text(
-                                          index + 1 < 10
-                                              ? "0${index + 1}"
-                                              : "${index + 1}",
-                                          style: TextStyle(
-                                            color: Colors.yellow,
-                                            fontSize: 35.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            );
-                          }),
-                        ),
-                      ],
-                    ),
+                            )),
+                      );
+                    }),
                   ),
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
-                )),
+                ],
+              ),
+            ),
+          )),
     );
   }
 
-  List calculate(topic) {
+  List calcultae(topic) {
     num totalSessions = 0, attendedSessions = 0;
 
     for (int i = 0; i < data.length; i++) {
@@ -552,11 +602,11 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ),
-            category("V", calculate("V"), Color(0xFF05872d), Colors.white,
+            category("V", calcultae("V"), Color(0xFF05872d), Colors.white,
                 false, row, 0),
-            category("R", calculate("R"), Color(0xFF75bc1e), Colors.black,
+            category("R", calcultae("R"), Color(0xFF75bc1e), Colors.black,
                 false, row, 1),
-            category("A", calculate("A"), Color(0xFFffbb00), Color(0xFF0d8114),
+            category("A", calcultae("A"), Color(0xFFffbb00), Color(0xFF0d8114),
                 true, row, 2),
           ],
         ),
@@ -565,37 +615,95 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Widget category(frontText, backText, bgColor, textColor, isCurved, row, col) {
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          bool t = isClicked[row][col];
-          isClicked[row] = [false, false, false];
-          isClicked[row][col] = !t;
 
-          setState(() {});
-        },
-        child: Container(
+    return Expanded(
+      child: Container(
           decoration: BoxDecoration(
               color: bgColor,
               borderRadius: isCurved
                   ? BorderRadius.only(
-                      topRight: Radius.circular(7.0),
-                      bottomRight: Radius.circular(7.0),
-                    )
+                topRight: Radius.circular(7.0),
+                bottomRight: Radius.circular(7.0),
+              )
                   : BorderRadius.circular(1.0)),
-          child: Center(
-            child: Text(
-              isClicked[row][col]
-                  ? "${(row == 0) ? backText[0] : (row == 1) ? backText[1] : (backText[1] / backText[0] * 100).toInt()}"
-                  : frontText,
-              style: TextStyle(
-                color: textColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+          child: InkWell(
+            onTap: () {
+              bool t = isClicked[row][col];
+              isClicked[row] = [false, false, false];
+              isClicked[row][col] = !t;
+
+              setState(() {_toggleCard;});
+            },
+            child: GestureDetector(
+              onTap: _toggleCard,
+              child: Card(
+                color: bgColor,
+                child: SizedBox(
+                  width: 200,
+                  height: 300,
+                  child: AnimatedBuilder(
+                    animation: _animation,
+                    builder: (context, child) {
+                      final angle = _animation.value * 3.1416;
+                      return Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateX(angle),
+                        child: _animation.value <= 0.5
+                            ? Content(
+                          // key: ValueKey(frontText),
+                          text: frontText,
+                          color: bgColor,
+                        )
+                            : Transform(
+                          alignment: Alignment.center,
+                          transform: Matrix4.rotationX(3.1416),
+                          child: Content(
+                            // key: ValueKey(
+                            //     backText[col-1]
+                            // ),
+                            text: "${(row == 0)
+                                ? backText[0]
+                                : (row == 1)
+                                ? backText[1]
+                                : ((backText[1]) /
+                                backText[0] *
+                                100)
+                                .toInt()}",
+
+                            color: bgColor,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
+            //   child: Container(
+            //   decoration: BoxDecoration(
+            //       color: bgColor,
+            //       borderRadius: isCurved
+            //           ? BorderRadius.only(
+            //         topRight: Radius.circular(7.0),
+            //         bottomRight: Radius.circular(7.0),
+            //       )
+            //           : BorderRadius.circular(1.0)),
+            //   child: Center(
+            //     child: Text(
+            //       isClicked[row][col]
+            //           ? "${(row == 0) ? backText[0] : (row == 1) ? backText[1] : (backText[1] / backText[0] * 100).toInt()}"
+            //           : frontText,
+            //       style: TextStyle(
+            //         color: textColor,
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: 20,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+          )
       ),
     );
   }
@@ -634,5 +742,25 @@ class MyCustomPaint extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return false;
+  }
+}
+
+class Content extends StatelessWidget {
+  final String text;
+  final Color color;
+
+  const Content({Key? key, required this.text, required this.color}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: color,
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+      ),
+    );
   }
 }

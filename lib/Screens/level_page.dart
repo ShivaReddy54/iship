@@ -51,22 +51,6 @@ class _LevelPageState extends State<LevelPage> {
                 fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          actions: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 4,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.filter_alt,
-                      size: 25,
-                    ))
-              ],
-            )
-          ],
         ),
         body: Column(
           children: [
@@ -289,9 +273,9 @@ class _LevelPageState extends State<LevelPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                createTopics("Verbal ", _verbal),
-                createTopics("Reasoning ", _reasoning),
                 createTopics("Aptitude ", _aptitude),
+                createTopics("Reasoning ", _reasoning),
+                createTopics("Verbal ", _verbal),
               ],
             )
           ],
