@@ -16,7 +16,7 @@ class LevelPage extends StatefulWidget {
 class _LevelPageState extends State<LevelPage> {
   num _verbal = 0;
   num _reasoning = 0;
-  num _apptitude = 0;
+  num _aptitude = 0;
   num _sessions = 0;
   num _attended = 0;
 
@@ -24,183 +24,231 @@ class _LevelPageState extends State<LevelPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    setState(() {
-      _data = widget.data;
-      for (Map i in _data) {
-        if (i['topic'][0] == 'V')
-          _verbal += i['attended'];
-        else if (i['topic'][0] == 'R')
-          _reasoning += i['attended'];
-        else
-          _apptitude += i['attended'];
-        _sessions += i['sessions'];
-      }
-      _attended = _verbal + _reasoning + _apptitude;
-    });
+    _data = widget.data;
+    for (Map i in _data) {
+      if (i['topic'][0] == 'V')
+        _verbal += i['attended'];
+      else if (i['topic'][0] == 'R')
+        _reasoning += i['attended'];
+      else
+        _aptitude += i['attended'];
+      _sessions += i['sessions'];
+    }
+    _attended = _verbal + _reasoning + _aptitude;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Level - ${(widget.level < 10) ? "0${widget.level}" : widget.level}",
-          style: TextStyle(
-              color: Color.fromRGBO(13, 131, 70, 1),
-              fontWeight: FontWeight.bold),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Level - ${(widget.level < 10) ? "0${widget.level}" : widget.level}",
+            style: TextStyle(
+                color: Color.fromRGBO(13, 131, 70, 1),
+                fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          actions: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 4,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.filter_alt,
+                      size: 25,
+                    ))
+              ],
+            )
+          ],
         ),
-        centerTitle: true,
-        actions: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 4,
-              ),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.filter_alt,
-                    size: 25,
-                  ))
-            ],
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          physics: ScrollPhysics(),
-          shrinkWrap: true,
+        body: Column(
           children: [
-            Session(),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: _data.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    width: double.infinity,
-                    height: 90,
-                    margin: EdgeInsets.only(top: 15),
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: -5,
-                              offset: Offset(0, 5)),
-                        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Session(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(12)),
+                height: 50,
+                child: TabBar(
+                    dividerColor: Colors.transparent,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            width: 1, color: Colors.grey.withOpacity(0.2))),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            child: Row(children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: (_data[index]['topic'][0] == 'V')
-                                            ? AssetImage("assets/Verbal.png")
-                                            : (_data[index]['topic'][0] == 'R')
-                                                ? AssetImage(
-                                                    "assets/Reasoning.png")
-                                                : AssetImage(
-                                                    "assets/Aptitude.png"),
-                                        fit: BoxFit.fill)),
-                              ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Container(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _data[index]["title"],
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                              Color.fromRGBO(13, 131, 71, 1)),
-                                    ),
-                                    Text(
-                                      _data[index]["topic"],
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'No.of sessions: ',
-                                          style: TextStyle(
-                                              fontSize: 14, color: Colors.grey),
-                                        ),
-                                        Text("${_data[index]["sessions"]}  ",
-                                            style: TextStyle(
-                                                color: Colors.green,
-                                                fontWeight: FontWeight.w600)),
-                                        Text(
-                                          'Attended: ',
-                                          style: TextStyle(
-                                              fontSize: 14, color: Colors.grey),
-                                        ),
-                                        Text(
-                                          "${_data[index]["attended"]}  ",
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontWeight: FontWeight.w600),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ]),
-                          ),
-                          Container(
-                              width: 50,
-                              height: 50,
-                              child: Column(
-                                children: [
-                                  Transform.rotate(
-                                    angle: 22 / 7,
-                                    child: CircularPercentIndicator(
-                                      radius: 25,
-                                      lineWidth: 5,
-                                      progressColor: Colors.green,
-                                      percent: (_data[index]["attended"] /
-                                          _data[index]["sessions"]),
-                                      center: Transform.rotate(
-                                        angle: 22 / 7,
-                                        child: Text(
-                                          "${(_data[index]["attended"] / _data[index]["sessions"] * 100).toInt()}%",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )),
-                        ],
+                        color: Color(0xFF75bc1e)),
+                    tabs: [
+                      Tab(
+                        text: "Aptitude",
                       ),
-                    ));
-              },
+                      Tab(
+                        text: "Reasoning",
+                      ),
+                      Tab(
+                        text: "Verbal",
+                      ),
+                    ]),
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: <Widget>[
+                  buildListView('A'),
+                  buildListView('R'),
+                  buildListView('V'),
+                ],
+              ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildListView(String topic) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        itemCount: _data.length,
+        itemBuilder: (context, index) {
+          if (_data[index]['topic'][0] == topic) {
+            return Container(
+              width: double.infinity,
+              height: 90,
+              margin: EdgeInsets.only(top: 15),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 3, spreadRadius: -5, offset: Offset(0, 5)),
+                  ],
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      width: 1, color: Colors.grey.withOpacity(0.2))),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Row(children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: (_data[index]['topic'][0] == 'V')
+                                      ? AssetImage("assets/Verbal.png")
+                                      : (_data[index]['topic'][0] == 'R')
+                                          ? AssetImage("assets/Reasoning.png")
+                                          : AssetImage("assets/Aptitude.png"),
+                                  fit: BoxFit.fill)),
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _data[index]["title"],
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(13, 131, 71, 1)),
+                              ),
+                              Text(
+                                _data[index]["topic"],
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'No.of sessions: ',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  Text("${_data[index]["sessions"]}  ",
+                                      style: TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.w600)),
+                                  Text(
+                                    'Attended: ',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.grey),
+                                  ),
+                                  Text(
+                                    "${_data[index]["attended"]}  ",
+                                    style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ]),
+                    ),
+                    Container(
+                        width: 50,
+                        height: 50,
+                        child: Column(
+                          children: [
+                            Percentage(index),
+                          ],
+                        )),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return SizedBox.shrink();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget Percentage(index) {
+    num percent =
+        (_data[index]["attended"] / _data[index]["sessions"] * 100).toInt();
+    return Transform.rotate(
+      angle: 3.14,
+      child: CircularPercentIndicator(
+        radius: 25,
+        lineWidth: 5,
+        progressColor: (percent >= 75)
+            ? Colors.green
+            : (percent >= 40)
+                ? Colors.orange
+                : Colors.red,
+        percent: (_data[index]["attended"] / _data[index]["sessions"]),
+        center: Transform.rotate(
+          angle: 3.14,
+          child: Text(
+            "${percent}%",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
@@ -243,7 +291,7 @@ class _LevelPageState extends State<LevelPage> {
               children: [
                 createTopics("Verbal ", _verbal),
                 createTopics("Reasoning ", _reasoning),
-                createTopics("Aptitude ", _apptitude),
+                createTopics("Aptitude ", _aptitude),
               ],
             )
           ],
